@@ -8,6 +8,9 @@ import retrofit2.http.Query;
 
 public interface OpenWeatherMapService
 {
+
    @GET("/data/2.5/weather")
-   Single<WeatherMap> currentWeather(@Query("q") String city);
+   Single<WeatherMap> currentWeather(@Query("lat") double lat,
+                                     @Query("lon") double lon,
+                                     @Query("appid") String appid);
 }
