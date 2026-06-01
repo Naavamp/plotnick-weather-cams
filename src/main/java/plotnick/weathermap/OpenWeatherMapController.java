@@ -2,6 +2,7 @@ package plotnick.weathermap;
 
 
 import com.andrewoid.apikeys.ApiKey;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -36,20 +37,24 @@ public class OpenWeatherMapController
         ApiKey apiKey = new ApiKey();
         String keyString = apiKey.get();
 
-        Disposable disposableweathermap = OpenWeatherMapService.search(keyString, lon, lat)
+
+        Disposable disposableweathermap = OpenWeatherMapService.search(keyString, lonLabel, latLabel)
                 // tells Rx to request the data on a background Thread
                 .subscribeOn(Schedulers.io())
 
                 // tells Rx to handle the response on Swing's main Thread
                 .observeOn(Schedulers.from(SwingUtilities::invokeLater))
                 .subscribe(
-                        (this::handleResponsePhotos),
-                        Throwable::printStackTrace);
+                        (this::handleResponseWeather));
 
     }
 
     private void handleResponseWeather(WeatherMapCurrent current)
     {
+        templabel.setText(WeatherMapCurrent.temp());
+        feels_likelabel.setText(WeatherMapCurrent.feels_likeLabel());
+        description.setText(WeatherMapCurrent.description());
+
 
 
     }

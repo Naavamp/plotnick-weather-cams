@@ -16,7 +16,7 @@ public class WeatherMapFactory
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
 
-        return retrofit.createWeatherMapService(OpenWeatherMapService.class);
+        return retrofit.create(OpenWeatherMapService.class);
     }
 
 }
