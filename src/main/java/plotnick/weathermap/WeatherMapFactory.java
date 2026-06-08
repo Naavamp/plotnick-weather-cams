@@ -5,11 +5,11 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 public class WeatherMapFactory
 {
-    public OpenWeatherMapService createWeatherMapService()
+    public OpenWeatherMapService create()
     {
-        // configure Retrofit for the weatherMapService website
+        // configure Retrofit for the geocode rservice website
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("api.openweathermap.org")
+                .baseUrl("https://api.openweathermap.org")
                 // Configure Retrofit to use Gson to turn the Json into Objects
                 .addConverterFactory(GsonConverterFactory.create())
                 // Configure Retrofit to use Rx
@@ -17,6 +17,12 @@ public class WeatherMapFactory
                 .build();
 
         return retrofit.create(OpenWeatherMapService.class);
+
+
+
+
+
     }
+
 
 }

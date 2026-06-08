@@ -38,7 +38,7 @@ public class OpenWeatherMapController
         String keyString = apiKey.get();
 
 
-        Disposable disposableweathermap = OpenWeatherMapService.search(keyString, lonLabel, latLabel)
+        Disposable disposableweathermap = OpenWeatherMapService.currentWeather(keyString, lonLabel, latLabel)
                 // tells Rx to request the data on a background Thread
                 .subscribeOn(Schedulers.io())
 
@@ -54,8 +54,6 @@ public class OpenWeatherMapController
         templabel.setText(WeatherMapCurrent.temp());
         feels_likelabel.setText(WeatherMapCurrent.feels_likeLabel());
         description.setText(WeatherMapCurrent.description());
-
-
 
     }
 
