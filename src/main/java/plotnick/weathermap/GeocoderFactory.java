@@ -3,9 +3,10 @@ package plotnick.weathermap;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-public class WeatherMapFactory
+
+public class GeocoderFactory
 {
-    public OpenWeatherMapService create()
+    public GeocoderService create()
     {
         // configure Retrofit for the geocode rservice website
         Retrofit retrofit = new Retrofit.Builder()
@@ -16,8 +17,7 @@ public class WeatherMapFactory
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
 
-        return retrofit.create(OpenWeatherMapService.class);
-
+        return retrofit.create(GeocoderService.class);
     }
-    
+
 }

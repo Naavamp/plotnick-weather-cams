@@ -13,19 +13,19 @@ public class WeatherMapServiceTest
     @Test
     public void testCurrentWeather()
     {
-            //given
-            ApiKey apiKey = new ApiKey();
-            String keyString = apiKey.get();
-            OpenWeatherMapService service = new WeatherMapFactory().create();
+        //given
+        ApiKey apiKey1 = new ApiKey();
+        String keyString = apiKey1.get();
+        OpenWeatherMapService service = new WeatherMapFactory().create();
 
-            //when
+        //when
         WeatherMap result = service.currentWeather(40.7128, -74.0060, keyString)
                 .blockingGet();
 
-            //then
-            assertNotNull(result);
-            assertNotNull(result.current());
-            assertNotNull(result.current().weather());
+        //then
+        assertNotNull(result);
+        assertNotNull(result.current());
+        assertNotNull(result.current().weather());
 
 
     }
