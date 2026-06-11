@@ -1,17 +1,14 @@
 package plotnick.weathermap;
 
 import com.andrewoid.apikeys.ApiKey;
-import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 import javax.swing.*;
-import java.util.List;
 
 public class OpenWeatherMapController
 {
-    private OpenWeatherMapService OpenWeatherMapService;
-    private GeocoderService GeocoderService;
+    private OpenWeatherMapService openWeatherMapService;
 
     private JTextField search;
     private JLabel latLabel;
@@ -21,10 +18,11 @@ public class OpenWeatherMapController
     private JLabel description;
 
 
-    public OpenWeatherMapController(OpenWeatherMapService openWeatherMapService, JTextField search,
-                                    JLabel latLabel, JLabel lonLabel, JLabel templabel, JLabel feels_likelabel, JLabel description)
+    public OpenWeatherMapController(OpenWeatherMapService openWeatherMapService,
+                                    JTextField search, JLabel latLabel, JLabel lonLabel,
+                                    JLabel templabel, JLabel feels_likelabel, JLabel description)
     {
-        this.OpenWeatherMapService = openWeatherMapService;
+        this.openWeatherMapService = openWeatherMapService;
         this.search = search;
         this.latLabel = latLabel;
         this.lonLabel = lonLabel;
@@ -33,6 +31,7 @@ public class OpenWeatherMapController
         this.description = description;
 
     }
+
     public void doSearch()
     {
 
@@ -41,15 +40,18 @@ public class OpenWeatherMapController
         String keyString = apiKey.get();
 
 
-        Disposable disposable = GeocoderService.currentGeolocation(city, keyString)
+        Disposable disposable = openWeatherMapService.currentGeolocation(city, keyString)
                 .subscribeOn(Schedulers.io())
                 .flatMap(geocoder -> {
-                    latLabel.setText(String.valueOf(geocoder.lat()));
-                    lonLabel.setText(String.valueOf(geocoder.lon()));
 
-                    return OpenWeatherMapService.currentWeather(
-                            geocoder.lat(),
-                            geocoder.lon(),
+                    Geocoder geocoder1 = geocoder.get(0);
+
+                    latLabel.setText(String.valueOf(geocoder1.lat()));
+                    lonLabel.setText(String.valueOf(geocoder1.lon()));
+
+                    return openWeatherMapService.currentWeather(
+                            geocoder1.lat(),
+                            geocoder1.lon(),
                             keyString);
                 })
                 .observeOn(Schedulers.from(SwingUtilities::invokeLater))
@@ -60,9 +62,9 @@ public class OpenWeatherMapController
 
     private void handleResponseWeather(WeatherMap weatherMap)
     {
-        templabel.setText(String.valueOf(weatherMap.current().temp()));
-        feels_likelabel.setText(String.valueOf(weatherMap.current().feels_like()));
-        description.setText(String.valueOf(weatherMap.current().weather().description()));
+        templabel.setText(String.valueOf(weatherMap.main().temp()));
+        feels_likelabel.setText(String.valueOf(weatherMap.main().feels_like()));
+        description.setText(weatherMap.weather().get(0).description());
     }
 
 

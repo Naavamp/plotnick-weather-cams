@@ -1,6 +1,11 @@
 package plotnick.weathermap;
 
-public record WeatherMap(double lat, double lon, String timezone, int timezone_offset, WeatherMapCurrent current)
-{
+import java.util.List;
 
+public record WeatherMap(
+        Coord coord,
+        List<Weather> weather,
+        MainWeather main,
+        int timezone)
+{
 }

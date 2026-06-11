@@ -6,6 +6,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 import javax.swing.*;
+import java.util.List;
 
 
 public interface OpenWeatherMapService
@@ -15,5 +16,9 @@ public interface OpenWeatherMapService
    Single<WeatherMap> currentWeather(@Query("lat") double lat,
                                         @Query("lon") double lon,
                                         @Query("appid") String appid);
+
+   @GET("/geo/1.0/direct")
+   Single<List<Geocoder>> currentGeolocation(@Query("q") String city,
+                                            @Query("appid") String appid);
 
 }
