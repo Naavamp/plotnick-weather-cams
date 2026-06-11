@@ -16,16 +16,19 @@ public class WeatherMapServiceTest
         //given
         ApiKey apiKey1 = new ApiKey();
         String keyString = apiKey1.get();
+
         OpenWeatherMapService service = new WeatherMapFactory().create();
+        GeocoderService geocoderService = new GeocoderFactory().create();
 
         //when
-        WeatherMap result = service.currentWeather(40.7128, -74.0060, keyString)
-                .blockingGet();
+        Geocoder georesult = geocoderService.currentGeolocation("new york", keyString).blockingGet();
+//        WeatherMap weatherResult = service.currentWeather(40.7128, -74.0060, keyString)
+//                .blockingGet();
 
         //then
-        assertNotNull(result);
-        assertNotNull(result.current());
-        assertNotNull(result.current().weather());
+        assertNotNull(georesult);
+//        assertNotNull(weatherResult.current());
+//        assertNotNull(weatherResult.current().weather());
 
 
     }

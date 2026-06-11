@@ -13,6 +13,11 @@ public class OpenWeatherFrame extends JFrame
 
         setLayout(new GridBagLayout());
 
+        GridBagConstraints constraints;
+
+
+
+
 
 
     }
@@ -21,6 +26,22 @@ public class OpenWeatherFrame extends JFrame
     {
         OpenWeatherFrame frame = new OpenWeatherFrame();
         frame.setVisible(true);
+    }
+
+
+    private void addComponent(
+            Component component,
+            int x,
+            int y,
+            int width) {
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = x;
+        gbc.gridy = y;
+        gbc.gridwidth = width;
+        gbc.fill = GridBagConstraints.BOTH;
+
+        add(component, gbc);
     }
 
 }

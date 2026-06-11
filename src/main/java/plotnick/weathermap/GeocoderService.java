@@ -7,7 +7,7 @@ import retrofit2.http.Query;
 public interface GeocoderService
 {
     @GET("/geo/1.0/direct")
-    Single<Geocoder> currentGeolocation(@Query("city") String city,
-                                               @Query("appid") String appid);
+    Single<Geocoder> currentGeolocation(@Query("q") String city,
+                                        @Query("appid") String appid);
 
 }

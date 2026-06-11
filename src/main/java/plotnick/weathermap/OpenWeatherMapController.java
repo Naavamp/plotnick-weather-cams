@@ -58,15 +58,6 @@ public class OpenWeatherMapController
     }
 
 
-
-    private void handleGeocoderResponse(Geocoder geocoders)
-    {
-        latLabel.setText(String.valueOf(geocoders.lat()));
-        lonLabel.setText(String.valueOf(geocoders.lon()));
-
-
-    }
-
     private void handleResponseWeather(WeatherMap weatherMap)
     {
         templabel.setText(String.valueOf(weatherMap.current().temp()));
