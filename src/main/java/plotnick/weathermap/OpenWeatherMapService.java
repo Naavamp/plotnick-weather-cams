@@ -15,7 +15,9 @@ public interface OpenWeatherMapService
    @GET("/data/2.5/weather")
    Single<WeatherMap> currentWeather(@Query("lat") double lat,
                                         @Query("lon") double lon,
-                                        @Query("appid") String appid);
+                                        @Query("appid") String appid,
+
+                                     @Query("units") String units);
 
    @GET("/geo/1.0/direct")
    Single<List<Geocoder>> currentGeolocation(@Query("q") String city,

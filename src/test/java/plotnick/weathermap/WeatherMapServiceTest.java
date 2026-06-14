@@ -24,10 +24,11 @@ public class WeatherMapServiceTest
 
         //when
         List<Geocoder> georesult = service.currentGeolocation("new york", keyString).blockingGet();
-        WeatherMap weatherResult = service.currentWeather(40.7128, -74.0060, keyString)
-                .blockingGet();
+        WeatherMap weatherResult = service.currentWeather(40.7128, -74.0060, keyString, "imperial").blockingGet();
+
 
         //then
+        assertNotNull(georesult);
         assertNotNull(weatherResult);
         assertNotNull(weatherResult.main());
         assertNotNull(weatherResult.weather());

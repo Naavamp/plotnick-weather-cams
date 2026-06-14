@@ -52,7 +52,8 @@ public class OpenWeatherMapController
                     return openWeatherMapService.currentWeather(
                             geocoder1.lat(),
                             geocoder1.lon(),
-                            keyString);
+                            keyString,
+                            "imperial");
                 })
                 .observeOn(Schedulers.from(SwingUtilities::invokeLater))
                 .subscribe(this::handleResponseWeather);
