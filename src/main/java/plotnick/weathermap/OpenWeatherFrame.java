@@ -17,18 +17,18 @@ public class OpenWeatherFrame extends JFrame
         OpenWeatherMapService openWeatherMapService = new WeatherMapFactory().create();
 
         JTextField search = new JTextField("New York", 20);
-        JButton button = new JButton("Search");
+        final JButton button = new JButton("Search");
 
         JLabel lat = new JLabel(" ");
         JLabel lon = new JLabel(" ");
 
-        JLabel templabel = new JLabel("Temperature: ");
+        final JLabel templabel = new JLabel("Temperature: ");
         JLabel temp = new JLabel(" ");
 
-        JLabel feels_likelabel = new JLabel("Feels Like: ");
+        final JLabel feels_likelabel = new JLabel("Feels Like: ");
         JLabel feels_like = new JLabel(" ");
 
-        JLabel descriptionlabel = new JLabel("Description: ");
+        final JLabel descriptionlabel = new JLabel("Description: ");
         JLabel description = new JLabel(" ");
 
         JLabel title = new JLabel("Weather Now");
@@ -101,7 +101,7 @@ public class OpenWeatherFrame extends JFrame
         gbc.gridx = x;
         gbc.gridy = y;
         gbc.anchor = anchor;
-//        gbc.fill = GridBagConstraints.BOTH;
+//      gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(10, 10, 10, 10);
 
         add(component, gbc);
