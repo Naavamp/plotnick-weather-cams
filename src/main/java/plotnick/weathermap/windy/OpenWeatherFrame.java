@@ -1,4 +1,7 @@
-package plotnick.weathermap;
+package plotnick.weathermap.windy;
+
+import plotnick.weathermap.OpenWeatherMapService;
+import plotnick.weathermap.WeatherMapFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +17,8 @@ public class OpenWeatherFrame extends JFrame
         setTitle("Weather Map");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        OpenWeatherMapService openWeatherMapService = new WeatherMapFactory().create();
+        final OpenWeatherMapService openWeatherMapService = new WeatherMapFactory().create();
+        final WindyService windyService = new WindyServiceFactory().create();
 
         JTextField search = new JTextField("New York", 20);
         final JButton button = new JButton("Search");
@@ -34,10 +38,18 @@ public class OpenWeatherFrame extends JFrame
         JLabel title = new JLabel("Weather Now");
         title.setFont(new Font("Arial", Font.BOLD, 24));
 
+        final int maxNumPics = 5;
 
-        OpenWeatherMapController controller = new OpenWeatherMapController(openWeatherMapService,
+        final JLabel[] picLabels = new JLabel[maxNumPics];
+        for (int i = 0; i < maxNumPics; i++)
+        {
+            picLabels[i] = new JLabel();
+        }
+
+
+        OpenWeatherMapController controller = new OpenWeatherMapController(openWeatherMapService, windyService,
                                                                             search,lat, lon,
-                                                                        temp, feels_like,description);
+                                                                        temp, feels_like,description, picLabels);
 
 
 
@@ -67,6 +79,10 @@ public class OpenWeatherFrame extends JFrame
 
         addComponent(descriptionlabel, 2, 6, GridBagConstraints.NORTH);
         addComponent(description, 3, 6, GridBagConstraints.NORTH);
+        for (int i = 0; i < maxNumPics; i++)
+        {
+            addPicLabel(picLabels[i], 2 + i / 3, (7 * i) % 21);
+        }
 
         addComponent(title, 2, 0, GridBagConstraints.CENTER);
 
@@ -105,6 +121,16 @@ public class OpenWeatherFrame extends JFrame
         gbc.insets = new Insets(10, 10, 10, 10);
 
         add(component, gbc);
+    }
+
+    private void addPicLabel(JComponent picLabel, int x, int y)
+    {
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = x;
+        constraints.gridy = y;
+        constraints.gridheight = 7;
+        constraints.anchor = GridBagConstraints.NORTH;
+        add(picLabel, constraints);
     }
 
 }
